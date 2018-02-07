@@ -16,26 +16,26 @@ require! \run-sequence
 source = require \vinyl-source-stream
 require! \watchify
 
-config = 
+config =
     minify: process.env.MINIFY == \true
 
 # stylus-config :: Boolean -> object
-stylus-config = (minify) -> 
+stylus-config = (minify) ->
     use: nib!
     import: <[nib]>
     compress: minify
     "include css": true
 
 # build public/components/App.styl which requires other styl files
-gulp.task \build:examples:styles, ->
-    gulp.src <[./public/components/App.styl]>
-    .pipe gulp-stylus (stylus-config config.minify)
-    .pipe gulp.dest './public/components'
-    .pipe gulp-connect.reload!
+# gulp.task \build:examples:styles, ->
+#     gulp.src <[./public/components/App.styl]>
+#     .pipe gulp-stylus (stylus-config config.minify)
+#     .pipe gulp.dest './public/components'
+#     .pipe gulp-connect.reload!
 
-# watch all the style files both in public/components directory & themes directory
-gulp.task \watch:examples:styles, -> 
-    gulp.watch <[./public/components/*.styl ./themes/*.styl]>, <[build:examples:styles]>
+# # watch all the style files both in public/components directory & themes directory
+# gulp.task \watch:examples:styles, ->
+#     gulp.watch <[./public/components/*.styl ./themes/*.styl]>, <[build:examples:styles]>
 
 # create a browserify Bundler
 # create-bundler :: [String] -> object -> Bundler
@@ -77,15 +77,15 @@ examples-bundler = create-bundler [\./public/components/App.ls], debug: !config.
 app-js = file: \App.js, directory: \./public/components/
 
 # first, builds public/components/App.ls once, then builds it everytime there is a change
-gulp.task \build-and-watch:examples:scripts, (done) ->
-    build-and-watch config.minify, examples-bundler, app-js, done
+# gulp.task \build-and-watch:examples:scripts, (done) ->
+#     build-and-watch config.minify, examples-bundler, app-js, done
 
 gulp.task \build:themes, ->
     gulp.src <[./themes/*.styl]>
     .pipe gulp-stylus (stylus-config config.minify)
     .pipe gulp.dest \./themes
 
-gulp.task \watch:themes, -> 
+gulp.task \watch:themes, ->
     gulp.watch <[./themes/*.styl]>, <[build:themes]>
 
 gulp.task \build:src:scripts, ->
@@ -142,10 +142,10 @@ gulp.task \build:src, <[build:themes build:src:scripts]>
 gulp.task \watch:src, <[watch:themes watch:src:scripts]>
 gulp.task \build:examples, <[build:examples:styles build:examples:scripts]>
 gulp.task \watch:examples, <[watch:examples:styles watch:examples:scripts]>
-gulp.task \default, -> run-sequence do 
+gulp.task \default, -> run-sequence do
     \build:src
     \watch:src
-    \build:examples:styles 
-    \watch:examples:styles 
-    \build-and-watch:examples:scripts
-    \dev:server 
+    # \build:examples:styles
+    # \watch:examples:styles
+    # \build-and-watch:examples:scripts
+    # \dev:server

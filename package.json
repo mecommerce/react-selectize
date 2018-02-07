@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "async-ls": "0.0.3",
-    "brace": "git+https://github.com/furqanZafar/brace.git",
     "brfs": "^1.4.1",
     "browserify": "^14.4.0",
     "browserify-shim": "^3.8.10",
