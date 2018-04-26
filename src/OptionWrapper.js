@@ -8,9 +8,20 @@
     var prototype = extend$((import$(OptionWrapper, superclass).displayName = 'OptionWrapper', OptionWrapper), superclass).prototype, constructor = OptionWrapper;
     OptionWrapper.defaultProps = {};
     OptionWrapper.prototype.render = function(){
-      var this$ = this;
+      var classList, this$ = this;
+      classList = ['option-wrapper'];
+      if (!!this.props.highlight) {
+        classList.push('highlight');
+      } else {
+        '';
+      }
+      if (!!this.props.selected) {
+        classList.push('selected');
+      } else {
+        '';
+      }
       return div({
-        className: "option-wrapper " + (!!this.props.highlight ? 'highlight' : ''),
+        className: classList.join(' '),
         onMouseDown: function(e){
           var listener;
           listener = function(e){
