@@ -114,6 +114,7 @@
           item: option,
           highlight: isEqualToObject(this$.props.highlightedUid, uid),
           selectable: option != null ? option.selectable : void 8,
+          selected: option != null ? option.selected : void 8,
           onMouseMove: function(arg$){
             var currentTarget;
             currentTarget = arg$.currentTarget;

@@ -3,7 +3,7 @@ React = require \react
 {is-equal-to-object} = require \prelude-extension
 {cancel-event} = require \./utils
 
-# OptionWrapper & ValueWrapper are used for optimizing performance 
+# OptionWrapper & ValueWrapper are used for optimizing performance
 module.exports = class OptionWrapper extends React.Component
 
     # get-default-porps :: () -> Props
@@ -20,13 +20,17 @@ module.exports = class OptionWrapper extends React.Component
 
     # render :: a -> ReactElement
     render: ->
+        classList = ['option-wrapper'];
+        if !!@props.highlight then classList.push('highlight') else ''
+        if !!@props.selected then classList.push('selected') else ''
+
         div do
-            class-name: "option-wrapper #{if !!@props.highlight then 'highlight' else ''}"
+            class-name: classList.join(' ')
 
             # mimic the same behaviour as that of an html select element
             # on-mouse-down :: Event -> ()
             on-mouse-down: (e) ~>
-                
+
                 # listener :: Event -> ()
                 listener = (e) ~>
                     @props.on-click e
@@ -42,6 +46,6 @@ module.exports = class OptionWrapper extends React.Component
 
     # should-component-update :: Props -> Boolean
     should-component-update: (next-props) ->
-        (!(next-props?.uid `is-equal-to-object` @props?.uid)) or 
-        (next-props?.highlight != @props?.highlight) or 
+        (!(next-props?.uid `is-equal-to-object` @props?.uid)) or
+        (next-props?.highlight != @props?.highlight) or
         (next-props?.selectable != @props?.selectable)

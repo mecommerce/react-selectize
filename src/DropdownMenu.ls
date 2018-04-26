@@ -115,6 +115,7 @@ module.exports = class DropdownMenu extends React.PureComponent
                     item: option
                     highlight: @props.highlighted-uid `is-equal-to-object` uid
                     selectable: option?.selectable
+                    selected: option?.selected
 
                     on-mouse-move: ({current-target}) !~>
                         if @props.scroll-lock
